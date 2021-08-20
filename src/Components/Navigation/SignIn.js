@@ -15,9 +15,27 @@ class SignIn extends React.Component {
     onPasswordChange = (event) => {
         this.setState({signInPass : event.target.value})
     }
-
+    /*
     onSubmitSignIn = () => {
         fetch('http://localhost:3000/signin', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.signInEmail,
+                password: this.state.signInPass
+            })
+        })
+        .then(response => response.json())
+        .then(user => {
+            if(user.id){
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
+        })
+    } 
+    */
+    onSubmitSignIn = () => {
+        fetch('https://safe-everglades-41872.herokuapp.com/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

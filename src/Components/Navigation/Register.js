@@ -20,6 +20,7 @@ class Register extends React.Component {
         this.setState({pass : event.target.value})
     }
 
+   /*
     onSubmitSignIn = () => {
         fetch('http://localhost:3000/register', {
             method: 'post',
@@ -38,8 +39,26 @@ class Register extends React.Component {
             }
         })
     } 
+*/
+    onSubmitSignIn = () => {
+        fetch('https://safe-everglades-41872.herokuapp.com/register', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.pass,
+                name: this.state.name
+            })
+        })
+        .then(response => response.json())
+        .then(user => {
+            if(user.id){
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
+        })
+    } 
     render(){
-        const {onRouteChange} = this.props;
         return (
             <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l shadow-5 mw6 center">
                 <main className="pa4 black-80">
